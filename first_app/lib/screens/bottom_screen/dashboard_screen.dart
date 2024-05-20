@@ -34,8 +34,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Person'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_bag), label: 'Cart'),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: 'Cart'),
           BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
         ],
         backgroundColor: Colors.amber,

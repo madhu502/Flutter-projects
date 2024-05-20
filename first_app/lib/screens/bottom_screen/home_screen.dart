@@ -5,8 +5,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox.expand(
-      child: Center(child: Text('Home')),
+    return Scaffold(
+      body: Center(
+          child: GestureDetector(
+        onDoubleTap: () {
+          print("I'm Clicked");
+        },
+        child: const Text('Tap Me'),
+      )),
     );
   }
 }
