@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:student_management/common_widgets/my_card.dart';
 import 'package:student_management/model/student_model.dart';
 
@@ -10,28 +11,23 @@ class StudentDetailsScreen extends StatefulWidget {
 }
 
 class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
+  late Box<Student> _studentBox;
   final _gap = const SizedBox(height: 10);
-
-  // final _fnameController = TextEditingController();
-  // final _lnameController = TextEditingController();
-  // final _cityController = TextEditingController();
 
   late TextEditingController _fnameController;
   late TextEditingController _lnameController;
+  late TextEditingController _ageController;
   late TextEditingController _cityController;
 
-  // final cities = [
-  //   const DropdownMenuItem(value: 'Kathmandu', child: Text('Kathmandu')),
-  //   const DropdownMenuItem(value: 'Lalitpur', child: Text('Lalitpur')),
-  //   const DropdownMenuItem(value: 'Bhaktapur', child: Text('Bhaktapur')),
-  // ];
-
-  List<DropdownMenuItem> cities = [];
+  List<DropdownMenuItem<String>> cities = [];
 
   @override
   void initState() {
+    super.initState();
+    _initializeHive();
     _fnameController = TextEditingController(text: 'Madhu');
     _lnameController = TextEditingController();
+    _ageController = TextEditingController();
     _cityController = TextEditingController();
 
     cities = [
@@ -39,6 +35,14 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
       const DropdownMenuItem(value: 'Bhaktapur', child: Text('Bhaktapur')),
       const DropdownMenuItem(value: 'Lalitpur', child: Text('Lalitpur')),
     ];
+  }
+
+  Future<void> _initializeHive() async {
+    _studentBox = await Hive.openBox<Student>('studentBox');
+    setState(() {
+      // Load existing students from the box
+      students = _studentBox.values.toList();
+    });
   }
 
   @override
@@ -52,6 +56,7 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
   final _key = GlobalKey<FormState>();
 
   List<Student> students = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +65,7 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
         backgroundColor: Colors.amber,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(12.0),
         child: Form(
           key: _key,
           child: Column(
@@ -73,7 +78,7 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please enter fname';
+                    return 'Please enter first name';
                   }
                   return null;
                 },
@@ -87,16 +92,16 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please enter Last Name';
+                    return 'Please enter last name';
                   }
                   return null;
                 },
               ),
               _gap,
-              DropdownButtonFormField(
+              DropdownButtonFormField<String>(
                 items: cities,
                 onChanged: (value) {
-                  _cityController.text = value.toString();
+                  _cityController.text = value!;
                 },
                 decoration: const InputDecoration(
                   hintText: 'Select city',
@@ -119,7 +124,12 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
                         fname: _fnameController.text,
                         lname: _lnameController.text,
                         city: _cityController.text,
+                        age: _ageController.text,
                       );
+
+                      // Save to Hive box
+                      _studentBox.add(student);
+
                       setState(() {
                         students.add(student);
                       });
@@ -143,18 +153,6 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
                       students: students,
                       index: index,
                     );
-                    // return ListTile(
-                    //   title: Text(students[index].fname),
-                    //   subtitle: Text(students[index].city),
-                    //   trailing: IconButton(
-                    //     icon: const Icon(Icons.delete),
-                    //     onPressed: () {
-                    //       setState(() {
-                    //         students.removeAt(index);
-                    //       });
-                    //     },
-                    //   ),
-                    // );
                   },
                 ),
               ),

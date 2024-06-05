@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/first_app/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/first_app/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/first_app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/number_generator/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/number_generator/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/number_generator/build" />
+      <excludeFolder url="file://$MODULE_DIR$/simple_interest/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/simple_interest/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/simple_interest/build" />
+      <excludeFolder url="file://$MODULE_DIR$/student_management/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/student_management/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/student_management/build" />
+      <excludeFolder url="file://$MODULE_DIR$/swap_two_numbers/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/swap_two_numbers/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/swap_two_numbers/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
